@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/add.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row fresher-title col-12" style="align-items: center; justify-content: center;">
+            FRESHER MANAGEMENT WEB APPLICATION
+        </div>
+        <div class="row">
+            <div style="border: 1px black solid;" class="col-3">
+                <div>Menu</div>
+                <div>
+                    <a th:href="@{/add-fresher}">Add a fresher</a> <br>
+                    <a th:href="@{/list}">Fresher list</a>
+
+                </div>
+            </div>
+            <form id="form-add" method="post" action="/add-fresher" th:object="${fresher}" class="col-9">
+                <div class="row title-function">
+                    Fresher Detail
+                </div>
+                <div class="input-field">
+                    <span>Fresher Name</span> <span style="color: red;">*</span>
+                    <input id="fresherName" th:field="*{fresherName}" type="text">
+                    <p style="color: red" id="fresherNameErr"></p>
+                </div>
+
+                <div class="input-field">
+                    <span>Gender</span> <span style="color: red;">*</span>
+                    <input type="radio" id="male" th:field="*{gender}" th:value="1" > <span>Male</span>
+                    <input type="radio" id="female" th:field="*{gender}" th:value="0"> <span>Female</span>
+
+                </div>
+                <div class="input-field">
+                    <span>Birthday</span> <span style="color: red;">*</span>
+                    <input th:field="*{birthDate}" type="date">
+                    <p style="color: red" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"></p>
+
+                </div>
+                <div class="input-field">
+                    <span>Class name</span> <span style="color: red;">*</span>
+                    <select th:field="*{clazz}" name="" id="">
+                        <option  th:each="element: ${clazzes}" th:value="${element.clazzId}" th:text="${element.className}">123</option>
+
+                    </select>
+                </div>
+                <div class="input-field">
+                    <span>Other information</span>
+                    <input hidden th:field="*{hasSalary}" th:value="0">
+                    <input type="checkbox" th:field="*{hasSalary}" th:value="1"> <span>Has salary</span>
+                    <input hidden th:field="*{fromCampusLink}" th:value="0">
+                    <input type="checkbox" th:field="*{fromCampusLink}" th:value="1"> <span>From campus link</span>
+
+                </div>
+                <button type="submit">Save</button>
+            </form>
+        </div>
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script th:src="@{/js/index.js}"></script>
+</body>
+
+</html>

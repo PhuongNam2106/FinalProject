@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="html/AdminView/common/head::head"></head>
+
+<body>
+<!-- HEADER -->
+<div th:replace="html/AdminView/common/head::header"></div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- NAVIGATION -->
+        <div th:replace="html/AdminView/common/head::nav"></div>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <form th:object="${product}"   method="post" action="/product/add" class="form-horizontal" enctype="multipart/form-data">
+                    <fieldset>
+
+                        <!-- Form Name -->
+                        <legend>PRODUCTS</legend>
+                        <div class="form-group">
+                            <input hidden th:field="*{id}" value=""/>
+                        </div>
+                        <div style="width: 100%" class="form-group ">
+                            <label class="col-md-4 control-label" for="category">CATEGORY (required)</label>
+
+
+                            <div style="width: 93.333333% !important;" class="col-md-4">
+                                <select th:field="*{category}" class="form-control" id="category">
+                                    <option th:each="element : ${categories}" th:value="${element.id}" th:text="${element.name}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="title">PRODUCT NAME</label>
+                            <div style="width: 93.333333% !important;" class="col-md-4">
+                                <input th:field="*{title}" id="title"  placeholder="Product name" class="form-control input-md" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" >PRODUCT DESCRIPTION</label>
+                            <div style="width: 93.333333% !important;" class="col-md-4 text-des">
+                                <textarea th:field="*{detailDescription}" class="form-control" id="summernote" name="prd_description"></textarea>
+                            </div>
+                        </div>
+                        <script>
+                            $(document).ready(function() {
+                                $('#summernote').summernote();
+                            });
+                        </script>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" >PRICE</label>
+                            <div style="width: 93.333333% !important;" class="col-md-4">
+                                <input th:field="*{price}"  name="prd_price" placeholder="Price" class="form-control input-md" type="text" />
+                            </div>
+                        </div>
+
+                        <!-- Text input  XỬ LÝ SAU-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-md-4 control-label" >QUANTITY</label>-->
+<!--                            <div style="width: 93.333333% !important;" class="col-md-4">-->
+<!--                                <input th:field="*{quantity}"  name="prd_quantity" placeholder="Quantity" class="form-control input-md" type="number" />-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <!-- phần thêm avatar   -->
+                        <!-- File Button -->
+
+                        <!-- sửa sau -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" >Ảnh sản phẩm</label>
+                            <div style="width: 93.333333% !important;" class="col-md-4">
+                                <input id="avatarfile" name="avatarfile" class="input-file" type="file" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="productImage">Ảnh bổ sung</label>
+                            <div style="width: 93.333333% !important;" class="col-md-4">
+                                <input  id="productImage" name="productImage" class="input-file" type="file" multiple="multiple"/>
+                            </div>
+                        </div>
+
+                        <!-- Sale-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">SALE</label>
+                            <div style="width: 93.333333% !important;" class="col-md-4">
+                                <input th:field="*{sale}" placeholder="%" class="form-control input-md" type="number" />
+                            </div>
+                        </div>
+                        <!-- Size sản phẩm -->
+                        <div style="display: flex" class="form-group">
+                            <div style="display: block" class="col-1">
+                                <div th:each="element,stat : ${sizes}" th:object="${element}" >
+                                    <label  th:text="'Size ' + *{name}" class="col-md-6 control-label py-2"></label>
+                                </div>
+                            </div>
+                            <div style="display: block" class="col-2">
+                                <div th:each="prdSize,stat:${productSize}" style="width: 30% !important;" class="col-md-2">
+                                    <input hidden th:field="*{productSize[__${stat.index}__].id}">
+                                    <input hidden th:field="*{productSize[__${stat.index}__].product}">
+                                    <input hidden th:field="*{productSize[__${stat.index}__].size}">
+                                    <!--                                <p th:text="${prdSize.size}"></p>-->
+                                    <!--                                <input th:if="${product.id==null}" th:field="${prdSize.product}" th:value="1">-->
+                                    <!--                                    <input hidden name="prd_size" class="form-control input-md" th:field="${productSize[__${stat.index}__].size}" th:value="${element.id}"/>-->
+                                    <input class="form-control input-md" type="text" min="0" th:field="*{productSize[__${stat.index}__].quantity}" />
+                                    <!--                                                                    th:value="${productSize[__${stat.index}__].quantity}"-->
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Sản phẩm có HOT không -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Is Hot??</label>
+                            <div style="width: 93.333333% !important;" class="col-md-4">
+                                <input th:field="*{hot}" class="form-check-input" type="checkbox" />
+                            </div>
+                        </div>
+                         Button
+                        <br>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <button id="singlebutton" name="add" class="btn btn-primary">
+                                  Edit
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </main>
+    </div>
+</div>
+
+
+<script src="https://getbootstrap.com/docs/5.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous">
+</script>
+<script src="dashboard.js"></script>
+<script src="dashboard.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+</body>
+
+</html>
