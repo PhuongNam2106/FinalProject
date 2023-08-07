@@ -40,14 +40,14 @@
 </head>
 <body>
 <header th:fragment="header" class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/PhuongNamSport/trangchu.php">Phương Nam Sport</a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/home">Phương Nam Sport</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" />
     <div class="navbar-nav">
         <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="">Sign out</a>
+            <a class="nav-link px-3" href="/logout">Đăng xuất</a>
         </div>
     </div>
 </header>
@@ -63,11 +63,11 @@
 
             <li style="margin-bottom: 20px;" class="nav-item sub">
                 <a class="nav-link" href="#">
-                    <span data-feather="file"></span> Orders
+                    <span data-feather="file"></span> Đơn hàng
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="/PhuongNamSport/Admin_view/saleOrderList.php"> Danh sách đơn hàng </a>
+                        <a class="nav-link" href="/admin/saleOrderList"> Danh sách đơn hàng </a>
                     </li>
 
                 </ul>
@@ -75,28 +75,28 @@
 
             <li style="margin-bottom: -12px;" class="nav-item sub">
                 <a class="nav-link" href="#">
-                    <span data-feather="shopping-cart"></span> Products
+                    <span data-feather="shopping-cart"></span> Sản phẩm
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="/product/add"> Thêm sản phẩm</a>
+                        <a class="nav-link" href="/admin/product/add"> Thêm sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/product/list"> Danh sách sản phẩm</a>
+                        <a class="nav-link" href="/admin/product/list"> Danh sách sản phẩm</a>
                     </li>
                 </ul>
             </li>
 
             <li style="margin-bottom: -12px;" class="nav-item sub">
                 <a class="nav-link" href="#">
-                    <span data-feather="shopping-cart"></span> Category
+                    <span data-feather="shopping-cart"></span> Danh mục
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="/category/add"> Thêm danh mục </a>
+                        <a class="nav-link" href="/admin/category/add"> Thêm danh mục </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/category/list"> Danh sách danh mục</a>
+                        <a class="nav-link" href="/admin/category/list"> Danh sách danh mục</a>
                     </li>
                 </ul>
             </li>
@@ -106,66 +106,25 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="/size/add"> Thêm size </a>
+                        <a class="nav-link" href="/admin/size/add"> Thêm size </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/size/list"> Danh sách size</a>
+                        <a class="nav-link" href="/admin/size/list"> Danh sách size</a>
                     </li>
                 </ul>
             </li>
             <li style="margin-bottom: -12px;" class="nav-item sub">
                 <a class="nav-link" href="#">
-                    <span data-feather="users"></span> Customers
+                    <span data-feather="users"></span> Khách hàng
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="./contactList"> Danh sách contact </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/PhuongNamSport/Admin_view/userlist.php"> Danh sách khách hàng</a>
+                        <a class="nav-link" href="/admin/userList"> Danh sách khách hàng</a>
                     </li>
                 </ul>
             </li>
-            <li style="margin-bottom: -12px;" class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="bar-chart-2"></span> Reports
-                </a>
-            </li>
-            <li style="margin-bottom: -12px;" class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="layers"></span> Integrations
-                </a>
-            </li>
         </ul>
 
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Saved reports</span>
-            <a class="link-secondary" href="#" aria-label="Add a new report">
-                <span data-feather="plus-circle"></span>
-            </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-            <li style="margin-bottom: -12px;" class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span> Current month
-                </a>
-            </li>
-            <li style="margin-bottom: -12px;" class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span> Last quarter
-                </a>
-            </li>
-            <li style="margin-bottom: -12px;" class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span> Social engagement
-                </a>
-            </li>
-            <li style="margin-bottom: -12px;" class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span> Year-end sale
-                </a>
-            </li>
-        </ul>
     </div>
 </nav>
 </body>

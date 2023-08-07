@@ -14,7 +14,7 @@
 </head>
 <body>
 	<!-- Common -->
-	<div class="row header">
+	<div class="row header " style="margin-left: 0px !important;width: 105% !important">
 		<div th:replace="html/CustomerView/common::header1"></div>
 		<div th:replace="html/CustomerView/common::header2"></div>
 		<div th:replace="html/CustomerView/common::nav"></div>
@@ -25,27 +25,27 @@
 	<form action="/cart/checkout" method="post">
 		<div style="margin-left: 300px;" class="card">
 			<div  class="row">
-				<div class="col-md-8 cart">
+				<div class="col-md-7 cart">
 					<div class="title">
 						<div class="row">
 							<div class="col">
 								<h4>
-									<b>Shopping Cart</b>
+									<b>Giỏ hàng</b>
 								</h4>
 							</div>
-							<div class="col align-self-center text-right text-muted">3
-								items</div>
+							<div class="col align-self-center text-right text-muted" th:text=" ${session.totalItems} + 'ITEMS '"></div>
 						</div>
 					</div>
 <!--					<c:forEach items="${cart.cartItems }" var="ci">-->
 						<div class="row border-top border-bottom">
-							<div th:each="ci : ${session.cart.cartItems}" class="row main align-items-center">
+							<div th:each="ci, rowIndex : ${session.cart.cartItems}" class="row main align-items-center">
 								<div class="col-2">
 									<img class="img-fluid" th:src="@{'/upload/'+${ci.productAvatar}}">
 								</div>
 								<div class="col">
 									<div class="row text-muted" th:text="${ci.productName}"></div>
-									<div class="row">Cotton T-shirt</div>
+									<div th:text="'Size: ' + ${ci.sizeName}" class="row"></div>
+
 								</div>
 								<div class="col">
 									<a  style="cursor: pointer " href="/cart/view" th:onclick="'javascript:minusQuanlityCart(\'' + @{/ajax/minusQuantityCart} + '\', ' + ${ci.productId} + ')'"  >-</a>
@@ -53,12 +53,7 @@
 									<a  style="cursor: pointer " href="/cart/view" th:onclick="'javascript:plusQuanlityCart(\'' + @{/ajax/plusQuantityCart} + '\', ' + ${ci.productId} + ')'" >+</a>
 								</div>
 
-<!--					href="/cart/view"			th:onclick="'javascript:minusQuanlityCart(\'' + @{/ajax/minusQuantityCart} + '\', ' + ${ci.productId} + ')'"-->
-								
 
-								<div th:if="${#lists.isEmpty(TB)}" th:text="${TB}" style="color: red" role="alert">
-
-								 </div>
 
 								<div th:text="${#numbers.formatDecimal(ci.priceUnit, 0, 'COMMA', 0, 'POINT')} +'đ'" class="col">
 									<!-- &euro; 44.00 <span class="close">&#10005;</span> -->
@@ -66,6 +61,9 @@
 								<div class="col">
 									<a style="margin-top: 0px" type="button" th:href="@{/cart/delete/{productId}(productId=${ci.productId})}" class="btn btn-danger" >Xóa</a>
 <!--									@{/product/delete/{productId}(productId=*{id})}-->
+								</div>
+								<div class="row ml-5" th:if="${session.TB!=null}" th:text="${session.TB}" style="color: red" role="alert">
+
 								</div>
 							</div>
 						</div>
@@ -75,56 +73,52 @@
 							class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Customer
 							Info</div>
 <!--					<c:if test="${!isLogined }">-->
-						<div class="p-4">
+						<div th:if="${!isLogined}" class="p-4">
 							<div class="form-group">
-								<label for="customerPhone">Customer full name</label>
-								<input type="tel" class="form-control" id="customerFullName" th:name="customerFullName" placeholder="Full name">
+								<label for="customerPhone">Họ tên khách hàng</label>
+								<input required type="tel" class="form-control" id="customerFullName" th:name="customerFullName" placeholder="Full name">
 							</div>
 							<div class="form-group">
-								<label for="customerEmail">Email address</label>
-								<input type="email" class="form-control" id="customerEmail" th:name="customerEmail" placeholder="Enter email">
+								<label for="customerEmail">Email</label>
+								<input required type="email" class="form-control" id="customerEmail" th:name="customerEmail" placeholder="Enter email">
 								<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 							</div>
 							<div class="form-group">
-								<label for="customerPhone">Phone</label>
-								<input type="tel" class="form-control" id="customerPhone" th:name="customerPhone" placeholder="Phone">
+								<label for="customerPhone">Số điện thoại</label>
+								<input required type="tel" class="form-control" id="customerPhone" th:name="customerPhone" placeholder="Phone">
 							</div>
 							<div class="form-group">
-								<label for="customerAddress">Address</label>
-								<input type="text" class="form-control" id="customerAddress" th:name="customerAddress" placeholder="Address">
+								<label for="customerAddress">Địa chỉ</label>
+								<input required type="text" class="form-control" id="customerAddress" th:name="customerAddress" placeholder="Address">
 							</div>
 						</div>
-<!--						</c:if>-->
-						
-<!--						<c:if test="${isLogined }">-->
-<!--						<div class="p-4">-->
-<!--							<div class="form-group">-->
-<!--								<label for="customerPhone">Customer full name</label>-->
-<!--								<input type="tel" class="form-control" id="customerFullName" name="customerFullName" value="${userLogined.customerName }" >-->
-<!--							</div>-->
-<!--							<div class="form-group">-->
-<!--								<label for="customerEmail">Email address</label>-->
-<!--								<input type="email" class="form-control" id="customerEmail" name="customerEmail" value="${userLogined.email }" >-->
-<!--								<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
-<!--							</div>-->
-<!--							<div class="form-group">-->
-<!--								<label for="customerPhone">Phone</label>-->
-<!--								<input type="tel" class="form-control" id="customerPhone" name="customerPhone"value="${userLogined.phone }" >-->
-<!--							</div>-->
-<!--							<div class="form-group">-->
-<!--								<label for="customerAddress">Address</label>-->
-<!--								<input type="text" class="form-control" id="customerAddress" name="customerAddress" value="${userLogined.address }">-->
-<!--							</div>-->
-<!--						</div>-->
-<!--						</c:if>-->
+
+						<div th:if="${isLogined }" class="p-4">
+							<div class="form-group">
+								<label for="customerPhone">Họ tên khách hàng</label>
+								<input required type="tel" class="form-control" id="customerFullName" name="customerFullName" th:value="${userLogined.customerName }" >
+							</div>
+							<div class="form-group">
+								<label for="customerEmail">Email</label>
+								<input required type="email" class="form-control" id="customerEmail" name="customerEmail" th:value="${userLogined.email }" >
+								<small  id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+							</div>
+							<div class="form-group">
+								<label for="customerPhone">Số điện thoại</label>
+								<input required type="tel" class="form-control" id="customerPhone" name="customerPhone" th:value="${userLogined.phone }" >
+							</div>
+							<div class="form-group">
+								<label for="customerAddress">Địa chỉ</label>
+								<input required type="text" class="form-control" id="customerAddress" name="customerAddress" th:value="${userLogined.address }">
+							</div>
+						</div>
 						<!-- <button type="submit" class="btn">CHECKOUT</button> -->
 					
 					<div class="back-to-shop">
-						<a href="${base}/home">&leftarrow;</a><span class="text-muted">Back to
-							shop</span>
+						<a th:href="@{/home}">&leftarrow;</a><span class="text-muted">Quay lại trang chủ</span>
 					</div>
 				</div>
-				<div class="col-md-4 summary">
+				<div class="col-md-5 summary">
 					<div>
 						<h5>
 							<b>Summary</b>
@@ -143,15 +137,30 @@
 						<p>GIVE CODE</p>
 						<input id="code" placeholder="Enter your code">
 					</form>
-					<div class="row"
-						style="border-top: 1px solid rgba(0, 0, 0, .1); padding: 2vh 0;">
-						<div class="col">TOTAL PRICE</div>
+					<div class="row" style="border-top: 1px solid rgba(0, 0, 0, .1); padding: 2vh 0;">
+						<div class="col">Tổng tiền</div>
 						<div th:text="${#numbers.formatDecimal(session.cart.totalPrice, 0, 'COMMA', 0, 'POINT')} +'đ'" class="col text-right">
 
 						</div>
 					</div>
-					<button type="submit" class="btn">CHECKOUT</button>
-			
+					<div class="row">Phương thức thanh toán</div>
+					<div class="row" style="border-top: 1px solid rgba(0, 0, 0, .1); padding: 2vh 0;">
+
+						<div style="justify-content: space-between;">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="payment" checked value="0">
+								<label class="form-check-label" ><i class="fa-light fa-box-check fa-lg"></i>COD</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="payment"  value="1">
+								<label class="form-check-label" ><i class="fa-brands fa-cc-paypal fa-lg"></i>Paypal</label>
+								<span th:text="'('+${#numbers.formatDecimal(session.cart.totalPrice/23000, 2, 'COMMA', 2, 'POINT')} +'USD'+')'" name="price"></span>
+							</div>
+
+						</div>
+					</div>
+					<input th:value="${session.cart.totalPrice/23000}" name="price" hidden>
+					<button type="submit" class="btn btn-success">Thanh toán</button>
 				</div>
 				
 			</div>

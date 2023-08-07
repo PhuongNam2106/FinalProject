@@ -1,5 +1,6 @@
 package com.training.JWEBPraticeT02.controller.admin;
 
+import com.training.JWEBPraticeT02.Service.CategoryService;
 import com.training.JWEBPraticeT02.entity.Category;
 import com.training.JWEBPraticeT02.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,10 @@ import java.util.Optional;
 public class CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    CategoryService categoryService;
 
-    @GetMapping("/category/add")
+    @GetMapping("/admin/category/add")
     public String addCategory(Model model) {
 
         if (model.getAttribute("category") == null) {
@@ -32,7 +35,7 @@ public class CategoryController {
     }
 
 
-    @PostMapping("/category/add")
+    @PostMapping("/admin/category/add")
     public String validateCategory(@ModelAttribute Category category,
                                   RedirectAttributes redirect) {
         categoryRepository.save(category);
@@ -40,7 +43,7 @@ public class CategoryController {
         return "redirect:list";
     }
 
-    @GetMapping("/category/list")
+    @GetMapping("/admin/category/list")
     public String getList(Model model){
 
         List<Category> categories = categoryRepository.findAll();
@@ -49,14 +52,17 @@ public class CategoryController {
         return "html/AdminView/categoryView/categoryList";
     }
 
-    @GetMapping("/category/delete/{id}")
+    @GetMapping("/admin/category/delete/{id}")
     public  String delete(@PathVariable("id") int id, RedirectAttributes attributes) {
+        //đoạn này là để xử lý khi xóa 1 category thì tất sp thuộc category đó sẽ được chuyển về category "Khác"
+        categoryService.updateCategoryIdToDefaultCategoryId(id);
         categoryRepository.deleteById(id);
         attributes.addFlashAttribute("message", "Delete successfully");
-        return "redirect:/category/list";
+
+        return "redirect:/admin/category/list";
     }
 
-    @GetMapping("/category/edit/{id}")
+    @GetMapping("/admin/category/edit/{id}")
     public  String editPage(@PathVariable("id") int id, Model model) {
 
 
@@ -67,14 +73,14 @@ public class CategoryController {
         return "html/AdminView/categoryView/editcategory";
     }
 
-    @PostMapping("/category/edit")
+    @PostMapping("/admin/category/edit")
     public  String editFresher(
-            @ModelAttribute("fresher") Category category,
+            @ModelAttribute("category") Category category,
             RedirectAttributes redirectAttributes)
     {
-        redirectAttributes.addFlashAttribute("message","Update information successfully");
+        redirectAttributes.addFlashAttribute("message","Đã thêm thành công");
         categoryRepository.save(category);
 
-        return "redirect:/category/list";
+        return "redirect:/admin/category/list";
     }
 }

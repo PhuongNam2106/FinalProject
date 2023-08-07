@@ -1,12 +1,22 @@
 package com.training.JWEBPraticeT02.Service;
 
 import com.training.JWEBPraticeT02.entity.Category;
+import com.training.JWEBPraticeT02.entity.Product;
 import com.training.JWEBPraticeT02.model.CategorySearchModel;
+import com.training.JWEBPraticeT02.repositories.CategoryRepository;
+import com.training.JWEBPraticeT02.repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
 public class CategoryService extends BaseService<Category>{
+	@Autowired
+	CategoryRepository categoryRepository;
+	@Autowired
+	ProductRepository productRepository;
 
 	@Override
 	protected Class<Category> clazz() {
@@ -40,6 +50,17 @@ public class CategoryService extends BaseService<Category>{
 //				sql += " and p.status=1 ";
 		return executeByNativeSQL(sql, searchModel == null ? 0 : searchModel.getPage());
 		
+	}
+
+	public void updateCategoryIdToDefaultCategoryId(int id)
+	{
+		List<Product> productList = productRepository.findByCategoryId(id);
+		Category category = categoryRepository.findByName("Khác");
+
+		for (Product product : productList) {
+			product.setCategory(category);
+		}
+		productRepository.saveAll(productList);
 	}
 
 }

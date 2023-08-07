@@ -12,7 +12,7 @@
         <div class="row">
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <form th:object="${size}"  method="post" action="/size/add" class="form-horizontal">
+                <form th:object="${size}"  method="post" action="/admin/size/add" class="form-horizontal">
                     <fieldset>
                         <!-- Form Name -->
                         <legend>Size</legend>
@@ -21,7 +21,7 @@
                             <div style="width: 93.333333% !important" class="col-md-4">
                                 <input hidden th:field="*{id}" path="name"   placeholder="SIZE NAME" class="form-control input-md" type="text" />
                             </div>
-                            <label class="col-md-4 control-label">SIZE NAME</label>
+                            <label class="col-md-4 control-label">TÊN SIZE</label>
                             <div style="width: 93.333333% !important" class="col-md-4">
                                 <input th:field="*{name}" path="name"  name="category_name" placeholder="SIZE NAME" class="form-control input-md" type="text" />
                             </div>
@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <div class="col-md-4">
                                 <button id="singlebutton" class="btn btn-primary" type="submit">
-                                    Lưu
+                                    Save
                                 </button>
                             </div>
                         </div>

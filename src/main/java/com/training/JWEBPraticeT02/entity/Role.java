@@ -1,5 +1,7 @@
 package com.training.JWEBPraticeT02.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -16,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbl_roles")
-public class Role extends BaseEntity /*implements GrantedAuthority*/{
+public class Role extends BaseEntity implements GrantedAuthority {
 	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 
@@ -31,7 +33,7 @@ public class Role extends BaseEntity /*implements GrantedAuthority*/{
 		this.users = users;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tbl_users_roles", joinColumns = @JoinColumn(name ="role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Set<User> users = new HashSet<User>();
 	public void addUsers(User user)
@@ -60,6 +62,11 @@ public class Role extends BaseEntity /*implements GrantedAuthority*/{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public String getAuthority() {
+		return name;
 	}
 
 //	@Override

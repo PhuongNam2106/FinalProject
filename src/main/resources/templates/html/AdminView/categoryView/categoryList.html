@@ -37,18 +37,17 @@
                             <div class="d-flex flex-row">
                                 <input type="hidden" id="page" name="page" class="form-control">
                                 <input type="text" id="keyword" name="keyword" class="form-control" placeholder="Search" value="" style="margin-right: 5px;">
-                                <button type="submit" id="btnSearch" name="btnSearch" value="Search" class="btn btn-primary">Seach</button>
+                                <button type="submit" id="btnSearch" name="btnSearch" value="Search" class="btn btn-primary">Tìm kiếm</button>
                             </div>
                             <div>
-                                <a class="btn btn-outline-primary mb-1" href="/category/add" role="button">Add
-                  New</a>
+                                <a class="btn btn-outline-primary mb-1" th:href="@{/admin/category/add}" role="button">Thêm mới</a>
                             </div>
                         </div>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Category Name</th>
+                                    <th scope="col">Tên danh mục</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,8 +59,8 @@
 
                                     </td >
                                     <td>
-                                        <a class="btn btn-primary" th:href="@{/category/edit/{id}(id=*{id})}" role="button">Edit</a>
-                                        <a class="btn btn-danger" th:href="@{/category/delete/{id}(id=*{id})}" onclick="return confirm('Bạn có muốn xóa ?')" role="button">Delete</a>
+                                        <a class="btn btn-primary" th:href="@{/admin/category/edit/{id}(id=*{id})}" role="button">Edit</a>
+                                        <a class="btn btn-danger" th:href="@{/admin/category/delete/{id}(id=*{id})}" onclick="return confirm('Bạn có muốn xóa ?')" role="button">Delete</a>
                                     </td>
                                 </tr>
 

@@ -1,0 +1,71 @@
+.container
+{
+    width: 35%;
+    margin: 0 auto;
+    border: 2px solid black;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 161px;
+    max-width: 900px !important;
+}
+
+.input-inf
+{
+    margin-top: 10px;
+    margin-left: 40px;
+    
+}
+
+.info
+{
+    margin-bottom: 10px;
+    border-bottom: 2px solid black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-weight: bold;
+    color: black;
+    height: 40px;
+    width: 200px;
+    border-radius: 12px;
+    width: 300px;
+}
+
+body>p
+{
+    font-size: 48px;
+    font-weight: bold;
+    font-family: arial;
+    margin-left: 380px;
+}
+
+.text-info
+{
+	border-radius: 12px;
+}
+
+.contact-button
+{
+    background-color: black;
+    border-radius: 30px;
+    color: white;
+    font-family: arial;
+    padding: 10px 40px;
+    font-size: 18px;
+}
+
+
+.info-contact{
+    margin-right: 40px;
+    margin-top: 27px;
+    margin-bottom: 30px;
+}
+a
+{
+    color: black;
+    font-size: 20px;
+    margin-right: 10px;
+    margin-bottom: 30px;
+}
+

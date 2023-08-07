@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--head-->
+<!--<head th:replace="html/CustomerView/common::head"></head>-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/contact.css}">
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <title>Phương Nam Sport</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="icon" href="./image/Free_Sample_By_Wix__1_-removebg-preview.png" type="image/icon type">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+    <div  class="container-fluid">
+        <div style="width: 105% !important" class="row header">
+            <div th:replace="html/CustomerView/common::header1"></div>
+            <div th:replace="html/CustomerView/common::header2"></div>
+            <div th:replace="html/CustomerView/common::nav"></div>
+        </div>
+     </div>
+
+        
+   
+    </div>
+      <!--CONTACT-->
+         <p style="margin-top:200px; margin-bottom:-130px; color: white" >Thông tin của bạn</p>
+    <div class="container">
+
+        <div style="margin-top:15px" class="col-12">
+            <form action="/profile" method="post" th:object="${user}" class="card mb-3">
+                <input hidden th:field="*{id}" th:value="${userLogined.id}">
+              <div class="card-body">
+                <div class="row col-8">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Họ tên</h6>
+                  </div>
+                  <div style="text-align: center"  class="col-sm-9 text-secondary info">
+                   <input th:field="*{customerName}" type="tel" class="form-control" id="customerFullName" name="customerFullName" value="${userLogined.customerName }" />
+                  </div>
+                </div>
+                <hr>
+                <div class="row col-8">
+                  <div class="col-sm-3">
+                    <h6  class="mb-0">Email</h6>
+                  </div>
+                  <div style="text-align: center" class="col-sm-9 text-secondary info">
+                  <input th:field="*{email}" name="email" type="tel" class="form-control"  value="${userLogined.email }" />
+                    
+                  </div>
+                </div>
+                <hr>
+                <div class="row col-8">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Điện thoại</h6>
+                  </div>
+                  <div style="text-align: center" class="col-sm-9 text-secondary info">
+                  <input th:field="*{phone}" name="phone" type="tel" class="form-control"   value=" ${userLogined.phone }" />
+                  <input hidden th:field="*{password}" name="phone" type="text" class="form-control"   value=" ${userLogined.password }" />
+                  <input hidden th:field="*{username}" name="phone" type="text" class="form-control"   value=" ${userLogined.username }" />
+
+                  </div>
+                </div>
+                <hr>
+             
+                <hr>
+                <div class="row col-8">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Địa chỉ</h6>
+                  </div>
+                  <div style="text-align: center" class="col-sm-9 text-secondary info">
+                      <input th:field="*{address}" name="address" type="tel" class="form-control"  value=" ${userLogined.address }" />
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-12">
+                     <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Cập nhật</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+    </div>
+   
+
+    <!--END-Position-->
+    <!-- Footer -->
+    <!-- <footer style="background-color: #333333 !important ;" class=" row text-center text-lg-start bg-light text-muted">
+        Section: Social media
+        <section
+          class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+        >
+          Left
+          <div class="me-5 d-none d-lg-block">
+            <span>Get connected with us on social networks:</span>
+          </div>
+          Left
+      
+          Right
+          <div>
+            <a href="" class="me-4 text-reset">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+              <i class="fab fa-google"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+              <i class="fab fa-instagram"></i>
+            </a>
+            
+          </div>
+          Right
+        </section>
+        Section: Social media
+      
+        Section: Links 
+        <section class="">
+          <div class="container text-center text-md-start mt-5">
+            Grid row
+            <div class="row mt-3">
+              Grid column
+              <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                Content
+                <h6 class="text-uppercase fw-bold mb-4">
+                    
+                  <i class="fas fa-gem me-3"></i>Phương Nam Sport 
+                </h6>
+                <p>
+                  Rất hân hạnh được đem đến cho quý khách những sản phẩm tốt nhất
+                </p>
+              </div>
+              Grid column
+      
+              Grid column
+              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                Links
+                <h6 class="text-uppercase fw-bold mb-4">
+                  Products
+                </h6>
+                <p>
+                  <a href="#!" class="text-reset">Giày bóng đá</a>
+                </p>
+                <p>
+                  <a href="#!" class="text-reset">Quần áo bóng đá</a>
+                </p>
+                <p>
+                  <a href="#!" class="text-reset">Phụ kiện bóng đá</a>
+                </p>
+                <p>
+                  <a href="#!" class="text-reset">Bóng đá</a>
+                </p>
+              </div>
+              Grid column
+      
+              Grid column
+              <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                Links
+                <h6 class="text-uppercase fw-bold mb-4">
+                  Useful links
+                </h6>
+                <p>
+                  <a href="#!" class="text-reset">Pricing</a>
+                </p>
+                <p>
+                  <a href="#!" class="text-reset">Settings</a>
+                </p>
+                <p>
+                  <a href="#!" class="text-reset">Orders</a>
+                </p>
+                <p>
+                  <a href="#!" class="text-reset">Help</a>
+                </p>
+              </div>
+              Grid column
+      
+              Grid column
+              <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                Links
+                <h6 class="text-uppercase fw-bold mb-4">
+                  Contact
+                </h6>
+                <p><i class="fas fa-home me-3"></i> tòa HH2B Linh Đàm,quận Hoàng Mai, Hà Nội</p>
+                <p>
+                    <i class="fas fa-envelope me-3"></i>
+                    nguyennam210601@gmail.com
+                    <p><i class="fas fa-phone me-3"></i>0358307767</p>
+                </p>
+                
+              </div>
+              Grid column
+            </div>
+            Grid row
+          </div>
+        </section>
+        Section: Links 
+      
+        Copyright
+        Copyright
+        </footer> -->
+  <!-- Footer -->
+</div>
+    
+    
+  
+</body>
+<jsp:include page="/WEB-INF/view/khachhang/layout/js.jsp"></jsp:include>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</html>

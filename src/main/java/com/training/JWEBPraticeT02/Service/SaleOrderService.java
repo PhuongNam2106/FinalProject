@@ -2,19 +2,25 @@ package com.training.JWEBPraticeT02.Service;
 
 import com.training.JWEBPraticeT02.entity.SaleOder;
 import com.training.JWEBPraticeT02.model.SaleOrderSearchModel;
+import com.training.JWEBPraticeT02.repositories.SaleOrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 
 @Service
 public class SaleOrderService extends BaseService<SaleOder>{
+	@Autowired
+	SaleOrderRepository saleOrderRepository;
 
 	@Override
 	protected Class<SaleOder> clazz() {
 		// TODO Auto-generated method stub
 		return SaleOder.class;
 	}
-	
+
 	 public PagerData<SaleOder> search(SaleOrderSearchModel searchModel) {
 
 	        // khởi tạo câu lệnh
@@ -38,4 +44,11 @@ public class SaleOrderService extends BaseService<SaleOder>{
 
 	        return executeByNativeSQL(sql, searchModel == null ? 0 : searchModel.getPage());
 	    }
+	public void setNullUserId(int userId)
+	{
+		List<SaleOder> saleOders = saleOrderRepository.findByUser_Id(userId);
+		for (SaleOder so: saleOders) {
+			so.setUser(null);
+		}
+	}
 }

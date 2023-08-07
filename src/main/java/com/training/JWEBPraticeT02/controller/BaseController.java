@@ -7,7 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import com.training.JWEBPraticeT02.Service.CategoryService;
 import com.training.JWEBPraticeT02.entity.Category;
 
+
+import com.training.JWEBPraticeT02.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 
@@ -16,24 +20,24 @@ public abstract class BaseController {
 	@Autowired
 	private CategoryService categoriesService;
 
-//	@ModelAttribute("isLogined")
-//	public boolean isLogined() {
-//		boolean isLogined = false;
-//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		if (principal instanceof UserDetails) {
-//			isLogined = true;
-//		}
-//		return isLogined;
-//	}
-//
-//	@ModelAttribute("userLogined")
-//	public User getUserLogined() {
-//		Object userLogined = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		if(userLogined != null && userLogined instanceof UserDetails)
-//			return (User) userLogined;
-//
-//		return null;
-//	}
+	@ModelAttribute("isLogined")
+	public boolean isLogined() {
+		boolean isLogined = false;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			isLogined = true;
+		}
+		return isLogined;
+	}
+
+	@ModelAttribute("userLogined")
+	public User getUserLogined() {
+		Object userLogined = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(userLogined != null && userLogined instanceof UserDetails)
+			return (User) userLogined;
+
+		return null;
+	}
 	
 	@ModelAttribute("categories")
 	public List<Category> getAllCategories() {

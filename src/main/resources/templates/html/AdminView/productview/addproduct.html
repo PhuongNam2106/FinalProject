@@ -11,16 +11,16 @@
         <!-- NAVIGATION -->
         <div th:replace="html/AdminView/common/head::nav"></div>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <form th:object="${product}"   method="post" action="/product/add" class="form-horizontal" enctype="multipart/form-data">
+                <form th:object="${product}"   method="post" action="/admin/product/add" class="form-horizontal" enctype="multipart/form-data">
                     <fieldset>
 
                         <!-- Form Name -->
-                        <legend>PRODUCTS</legend>
+                        <legend>SẢN PHẨM</legend>
                         <div class="form-group">
                             <input hidden th:field="*{id}" value=""/>
                         </div>
                         <div style="width: 100%" class="form-group ">
-                            <label class="col-md-4 control-label" for="category">CATEGORY (required)</label>
+                            <label class="col-md-4 control-label" for="category">DANH MỤC (required)</label>
 
 
                             <div style="width: 93.333333% !important;" class="col-md-4">
@@ -31,13 +31,13 @@
                         </div>
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="title">PRODUCT NAME</label>
+                            <label class="col-md-4 control-label" for="title">TÊN SẢN PHẨM</label>
                             <div style="width: 93.333333% !important;" class="col-md-4">
-                                <input th:field="*{title}" id="title"  placeholder="Product name" class="form-control input-md" type="text" />
+                                <input required th:field="*{title}" id="title"  placeholder="Product name" class="form-control input-md" type="text" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label" >PRODUCT DESCRIPTION</label>
+                            <label class="col-md-4 control-label" >MÔ TẢ SẢN PHẨM</label>
                             <div style="width: 93.333333% !important;" class="col-md-4 text-des">
                                 <textarea th:field="*{detailDescription}" class="form-control" id="summernote" name="prd_description"></textarea>
                             </div>
@@ -49,9 +49,9 @@
                         </script>
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" >PRICE</label>
+                            <label class="col-md-4 control-label" >GIÁ</label>
                             <div style="width: 93.333333% !important;" class="col-md-4">
-                                <input th:field="*{price}"  name="prd_price" placeholder="Price" class="form-control input-md" type="text" />
+                                <input required th:field="*{price}"  name="prd_price" placeholder="Price" class="form-control input-md" type="text" />
                             </div>
                         </div>
 
@@ -84,7 +84,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">SALE</label>
                             <div style="width: 93.333333% !important;" class="col-md-4">
-                                <input th:field="*{sale}" placeholder="%" class="form-control input-md" type="number" />
+                                <input required th:field="*{sale}" placeholder="%" class="form-control input-md" type="number" />
                             </div>
                         </div>
                         <!-- Size sản phẩm -->
@@ -112,7 +112,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Is Hot??</label>
                             <div style="width: 93.333333% !important;" class="col-md-4">
-                                <input th:field="*{hot}" class="form-check-input" type="checkbox" />
+                                <input  th:field="*{hot}" class="form-check-input" type="checkbox" />
                             </div>
                         </div>
                          Button
@@ -120,7 +120,7 @@
                         <div class="form-group">
                             <div class="col-md-4">
                                 <button id="singlebutton" name="add" class="btn btn-primary">
-                                  Edit
+                                  Lưu
                                 </button>
                             </div>
                         </div>

@@ -12,13 +12,13 @@
         <div class="row">
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <form th:object="${category}"  method="post" action="/category/add" class="form-horizontal">
+                <form th:object="${category}"  method="post" action="/admin/category/add" class="form-horizontal">
                     <fieldset>
                         <!-- Form Name -->
-                        <legend>CATEGORY</legend>
+                        <legend>Danh mục</legend>
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="name">CATEGORY NAME</label>
+                            <label class="col-md-4 control-label" for="name">Tên danh mục</label>
                             <div style="width: 93.333333% !important" class="col-md-4">
                                 <input th:field="*{name}" path="name" id="name" name="category_name" placeholder="CATEGORY NAME" class="form-control input-md" type="text" />
                             </div>
@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <div class="col-md-4">
                                 <button id="singlebutton" class="btn btn-primary" type="submit">
-                                    Thêm loại sản phẩm
+                                    Lưu
                                 </button>
                             </div>
                         </div>

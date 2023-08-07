@@ -40,7 +40,7 @@
                                 <button type="submit" id="btnSearch" name="btnSearch" value="Search" class="btn btn-primary">Seach</button>
                             </div>
                             <div>
-                                <a class="btn btn-outline-primary mb-1" href="/size/add" role="button">Add
+                                <a class="btn btn-outline-primary mb-1" href="/admin/size/add" role="button">Add
                   New</a>
                             </div>
                         </div>
@@ -48,8 +48,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Size Name</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Tên Size</th>
+                                    <th scope="col">Tác vụ</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,8 +61,8 @@
 
                                     </td >
                                     <td>
-                                        <a class="btn btn-primary" th:href="@{/size/edit/{id}(id=*{id})}" role="button">Edit</a>
-                                        <a class="btn btn-danger" th:href="@{/size/delete/{id}(id=*{id})}" onclick="return confirm('Bạn có muốn xóa ?')" role="button">Delete</a>
+                                        <a class="btn btn-primary" th:href="@{/admin/size/edit/{id}(id=*{id})}" role="button">Edit</a>
+                                        <a class="btn btn-danger" th:href="@{/admin/size/delete/{id}(id=*{id})}" onclick="return confirm('Bạn có muốn xóa ?')" role="button">Delete</a>
                                     </td>
                                 </tr>
 

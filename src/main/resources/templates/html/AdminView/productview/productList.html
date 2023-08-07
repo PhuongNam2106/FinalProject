@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <!-- head -->
@@ -14,48 +15,49 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
             <div class="container-fluid">
-
-                <form class="form-inline" action="" method="get" modelAttribute="products">
                     <div class="d-flex flex-row justify-content-between mt-4">
                         <div class="d-flex flex-row">
-                            <input type="hidden" id="page" name="page" class="form-control">
-                            <input type="text" id="keyword" name="keyword" class="form-control" placeholder="Search" value="" style="margin-right: 5px;">
-                            <select class="form-control" name="categoryId" id="categoryId" style="margin-right: 5px;">
-                              <option>Tất cả</option>
-                              <c:forEach items="" var="category">
-                                <option value=""></option>
-                              </c:forEach>
-                            </select>
-                            <button type="submit" id="btnSearch" name="btnSearch" value="Search" class="btn btn-primary">Seach</button>
+                            <form action="/admin/product/list" >
+                                <input type="hidden" id="page" name="page" class="form-control">
+                                <input  name="keyword" type="text" id="keyword" class="form-control" placeholder="Search"  style="margin-right: 5px;">
+                                <select name="field" class="form-control"  id="categoryId" style="margin-right: 5px;">
+                                    <option th:value="0">Tất cả</option>
+                                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                                </select>
+                                <button type="submit" id="btnSearch" name="btnSearch" value="Search" class="btn btn-primary">Seach</button>
+                            </form>
+
                         </div>
                         <div>
-                            <a class="btn btn-outline-primary mb-1" href="/product/add" role="button">Add
+                            <a class="btn btn-outline-primary mb-1" href="/admin/product/add" role="button">Add
                         New</a>
                         </div>
                     </div>
-                    <table class="table table-striped">
+            <form class="form-inline" action="/admin/product/list" method="get" modelAttribute="products">
+
+                <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Price Sale</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Avatar</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Giá giảm</th>
+                                <th scope="col">Danh mục</th>
+                                <th scope="col">Ảnh sản phẩm</th>
                                 <th scope="col">Hot</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Tác vụ</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="product,row : ${productList}"  th:object="${product}">
+                            <tr th:each="product,row : ${products}"  th:object="${product}">
 
                                 <td th:text="${row.index + 1}">
 
                                 </td>
 
                                 <td th:text="*{title}"></td>
-                                <td th:text="*{price}"></td>
-                                <td th:text="*{priceSale}"></td>
+                                <td  th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} +'đ'"></td>
+                                <td  th:text="${#numbers.formatDecimal(product.priceSale, 0, 'COMMA', 0, 'POINT')} +'đ'"></td>
                                 <td th:text="*{category.name}"></td>
                                 <td>
                                     <img width="100" th:src="@{'/upload/'+*{avatar}}">
@@ -65,8 +67,8 @@
                                 <td th:if="*{hot==false}"  th:text="NO"></td>
                                 <td>
 
-                                    <a class="btn btn-primary" th:href="@{/product/add/{productId}(productId=*{id})}" role="button">Edit</a>
-                                    <a class="btn btn-danger" th:href="@{/product/delete/{productId}(productId=*{id})}" onclick="return confirm('Bạn có muốn xóa')" role="button">Delete</a>
+                                    <a class="btn btn-primary" th:href="@{/admin/product/add/{productId}(productId=*{id})}" role="button">Edit</a>
+                                    <a class="btn btn-danger" th:href="@{/admin/product/delete/{productId}(productId=*{id})}" onclick="return confirm('Bạn có muốn xóa')" role="button">Delete</a>
                                 </td>
                             </tr>
 
@@ -76,12 +78,38 @@
                     <div class="text-center">
                         <a href="data_export_product.php" class="btn btn-primary" target="_blank">Export data</a>
                     </div>
-                    <!-- Paging -->
-                    <div class="row">
-                        <div class="col-12 d-flex justify-content-center">
-                            <div id="paging"></div>
-                        </div>
-                    </div>
+<!--                     Paging-->
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <th:block th:if="${currentPage == 1}">
+                                    <a class="page-link disabled" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </th:block>
+                                <th:block th:if="${currentPage != 1}">
+                                    <a class="page-link" th:href="@{/admin/product/list(pageIndex=${currentPage-1})}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </th:block>
+                            </li>
+                            <li class="page-item" th:each="index:${#numbers.sequence(1,products.totalPages)}">
+                                <a class="page-link" th:href="@{/admin/product/list(pageIndex=${index})}" th:text="${index}"></a>
+                            </li>
+                            <li class="page-item">
+                                <th:block th:if="${currentPage == products.totalPages}">
+                                    <a class="page-link disabled" aria-label="Next"><span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </th:block>
+                                <th:block th:if="${currentPage != products.totalPages}">
+                                    <a class="page-link" th:href="@{/admin/product/list(pageIndex=${currentPage+1})}" aria-label="Next"><span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </th:block>
+                            </li>
+                        </ul>
+                    </nav>
                 </form>
             </div>
         </main>

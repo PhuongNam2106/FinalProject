@@ -13,9 +13,13 @@ import com.training.JWEBPraticeT02.repositories.ProductRepository;
 import com.training.JWEBPraticeT02.repositories.ProductSizeRepository;
 import com.training.JWEBPraticeT02.repositories.SizeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,7 +51,7 @@ public class ProductController extends BaseController {
         List<Category> categories = categoryRepository.findAll();
         return categories;
     }
-    @GetMapping(value = { "/product/add" })
+    @GetMapping(value = { "/admin/product/add" })
     public String home(final Model model)
             throws IOException {
 
@@ -67,7 +71,7 @@ public class ProductController extends BaseController {
         return "html/AdminView/productview/addproduct";
     }
 
-    @PostMapping(value = { "/product/add" })
+    @PostMapping(value = { "/admin/product/add" })
     public String add_product(final Model model,
                               final @ModelAttribute("product") Product product,
                               final @RequestParam("avatarfile") MultipartFile avatarfile,
@@ -87,10 +91,10 @@ public class ProductController extends BaseController {
 
         }
 
-        return "redirect:/product/list";
+        return "redirect:/admin/product/list";
     }
 
-    @GetMapping(value = { "/product/add/{productId}" })
+    @GetMapping(value = { "/admin/product/add/{productId}" })
     public String adminProductEdit(final Model model, final HttpServletRequest request,
                                    final HttpServletResponse response, @PathVariable("productId") int productId) throws IOException {
         Optional<Product> productOptional = productRepository.findById(productId);
@@ -107,17 +111,39 @@ public class ProductController extends BaseController {
     }
 
 
-
-    @GetMapping(value = { "/product/list" })
-    public String adminProductList(final Model model, final HttpServletRequest request
+    private Page<Product> pagingProduct(int pageIndex){
+        int pageSize = 10;
+        Pageable pageable = PageRequest.of(pageIndex - 1, pageSize);
+        return productRepository.findAll(pageable);
+    }
+    @ExceptionHandler( MissingServletRequestParameterException.class)
+    @GetMapping(value = { "/admin/product/list" })
+    public String adminProductList(final Model model, final HttpServletRequest request,
+                                   final HttpServletResponse response,
+                                   @RequestParam(value = "pageIndex", required = false, defaultValue = "1") Integer pageIndex,
+                                   @RequestParam(value = "id", required = false, defaultValue = "") String id,
+                                   @RequestParam(value = "field", required = false) Integer field,
+                                   @RequestParam(value = "keyword", required = false) String keyword
                                    ) throws IOException {
-        /*ProductSearchModel searchModel = new ProductSearchModel();
-        searchModel.keyword = request.getParameter("keyword");
-        searchModel.setPage(getCurrentPage(request));
-        searchModel.categoryId = super.getInteger(request, "categoryId");
+        int pageSize = 10;
+        Pageable pageable = PageRequest.of(pageIndex - 1, pageSize);
+        Page<Product> products ;
 
-        model.addAttribute("productsWithPaging", productService.search(searchModel));
-        model.addAttribute("searchModel", searchModel);*/
+        Page<Product> page;
+        if("".equals(keyword)&&field==0||field==null)
+        {
+            products = productRepository.findAll(pageable);
+        }
+        else if("".equals(keyword)&&field!=0)
+        {
+
+            products = productRepository.findByCategoryId(field ,pageable);
+        }
+        else
+        {
+            products = productRepository.findByCategoryIdAndTitleContainingIgnoreCase(field,keyword ,pageable);
+        }
+
 
         List<Size> sizeList = sizeRepository.findAll();
         List<ProductSize> productSizeListNuLLProductID = productSizeRepository.findNullProductIdAndSizeId();
@@ -139,19 +165,29 @@ public class ProductController extends BaseController {
             }
         }
 
-
+        model.addAttribute("products",products);
+        model.addAttribute("currentPage", pageIndex);
         List<Product> productList = productRepository.findAll();
         model.addAttribute("productList",productList);
+
 
 
         return "html/AdminView/productview/productlist";
     }
 
-    @RequestMapping(value = {"/product/delete/{productId}"},method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/admin/product/delete/{productId}"},method = RequestMethod.GET)
     public String Delete(
                          @PathVariable("productId") int productId) throws IOException{
 
         productRepository.deleteById(productId);
-        return "redirect:/product/list";
+        return "redirect:/admin/product/list";
+    }
+
+    public boolean max(int a, int b) {
+            if(a > b) {
+                return true;
+            }
+            return false;
     }
 }

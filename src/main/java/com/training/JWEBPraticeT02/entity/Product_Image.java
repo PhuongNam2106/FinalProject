@@ -12,11 +12,11 @@ import javax.persistence.FetchType;
 public class Product_Image extends BaseEntity {
 	@Column(name = "title", length = 100, nullable = false)
 	private String title;
-	
+
 	@Column(name = "path", length = 500, nullable = false)
 	private String path;
-	
-	
+
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id")
 	private Product product;

@@ -26,22 +26,48 @@ contact = function(baseUrl) {
 	});
 }
 
+function checkPasswordMatch(fieldConfirmPassword) {
+        if (fieldConfirmPassword.value != document.getElementById("password").value) {
+            fieldConfirmPassword.setCustomValidity("Passwords do not match!");
+        } else {
+            fieldConfirmPassword.setCustomValidity("");
+        }
+    }
 
+
+var selectedSize = null;
+function getSizeValue(button) {
+  // Gỡ bỏ class "selected" từ button trước (nếu có)
+  var prevSelected = document.querySelector('.size-button.selected');
+  if (prevSelected) {
+    prevSelected.classList.remove('selected');
+  }
+
+  // Thêm class "selected" vào button được chọn
+  button.classList.add('selected');
+
+  // Lấy giá trị từ button được chọn và gán cho biến selectedSize
+  selectedSize = button.getAttribute('value');
+
+
+}
 
 // Thêm sản phẩm vào trong giỏ hàng
-function AddToCart(baseUrl,productId, quanlity) {
+function AddToCart(baseUrl,productId, size, quanlity) {
 	// javascript object.  data la du lieu ma day len action cua controller
 //	console.log(baseUrl+":"+productId+":"+quanlity);
-	console.log(productId+":"+quanlity);
+//	console.log(productId+":"+quanlity+":"+size);
+    console.log("size đã chọn: "+selectedSize);
+
 	let data = {
 		productId: productId, // lay theo id
 		quanlity: quanlity, // lay theo id
+		size: selectedSize,
 	};
 	
 	// $ === jQuery
 	// json == javascript object
 	jQuery.ajax({
-//	    console.log(baseUrl + "/ajax/addToCart");
 		url: baseUrl, //->action
 		type: "post",
 		contentType: "application/json",
@@ -51,6 +77,9 @@ function AddToCart(baseUrl,productId, quanlity) {
 		success: function(jsonResult) {
 			// tăng số lượng sản phẩm trong giỏ hàng trong icon
 			console.log(jsonResult);
+			console.log(size);
+			console.log(size);
+			console.log(size);
 			$( "#iconShowTotalItemsInCart" ).html(jsonResult.totalItems);
 			$([document.documentElement, document.body]).animate({
 			    scrollTop: $("#iconShowTotalItemsInCart").offset().top

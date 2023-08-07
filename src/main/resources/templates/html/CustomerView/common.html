@@ -14,38 +14,31 @@
 <body>
 
     <div class="row head"  th:fragment="header1">
-        <div class="col-12 nav-item dropdown nav-custom">
+        <div th:if="${not isLogined}" class="col-12 nav-item dropdown nav-custom">
             <a class=" col-2 nav-link dropdown-toggle nav-custom" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="far fa-user"></i> Tài khoản
             </a>
-            <div class="dropdown-menu dropdown-menu-custom" aria-labelledby="navbarDropdown">
+            <div  class="dropdown-menu dropdown-menu-custom" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item dropdown-item-custom" href="/register">Đăng ký</a>
+                <div class="dropdown-divider margin: 3px 0;"></div>
+                <a class="dropdown-item dropdown-item-custom" href="/login">Đăng nhập</a>
+                <div class="dropdown-divider margin: 3px 0;"></div>
+            </div>
+        </div>
 
-                <a class="dropdown-item dropdown-item-custom" href="./signup">Đăng ký</a>
+        <div th:if="${isLogined}" class="col-12 nav-item dropdown nav-custom">
+            <a style="padding-left: 0px;" class="col-2 nav-link dropdown-toggle nav-custom" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-user"></i>
+                <span th:text="${userLogined.email}"></span>
+            </a>
+            <div  class="dropdown-menu dropdown-menu-custom" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item dropdown-item-custom" th:href="@{/cart/view}">Giỏ hàng</a>
                 <div class="dropdown-divider margin: 3px 0;"></div>
-                <a class="dropdown-item dropdown-item-custom" href="./signin">Đăng nhập</a>
+                <a class="dropdown-item dropdown-item-custom" th:href="@{/profile}">Thông tin của bạn </a>
                 <div class="dropdown-divider margin: 3px 0;"></div>
-                <a class="dropdown-item dropdown-item-custom" href="#">Giỏ hàng</a>
+                <a class="dropdown-item dropdown-item-custom" th:href="@{/order}">Tra cứu đơn hàng </a>
                 <div class="dropdown-divider margin: 3px 0;"></div>
-                <a class="dropdown-item dropdown-item-custom" href="#">Thanh toán </a>
-                <div class="dropdown-divider margin: 3px 0;"></div>
-                <!-- <?php
-          if (isset($_SESSION['name'])) {
-            echo '<div class="dropdown-divider margin: 3px 0;"></div>';
-            echo '<a class="dropdown-item dropdown-item-custom" href="./signout">Đăng xuất </a>';
-          }
-          ?>
-                                <?php
-          if (isset($_SESSION['name'])) {
-            echo '<div class="dropdown-divider margin: 3px 0;"></div>';
-            echo '<a class="dropdown-item dropdown-item-custom" href="./view_user">Thông tin tài khoản</a>';
-          }
-          ?>
-                                    <?php
-          if (isset($_SESSION['role']) && $_SESSION['role'] == 1) {
-            echo '<div class="dropdown-divider margin: 3px 0;"></div>';
-            echo '<a class="dropdown-item dropdown-item-custom" href="./Admin_view">Quản lý </a>';
-          }
-          ?> -->
+                <a class="dropdown-item dropdown-item-custom" th:href="@{/logout}">Đăng xuất </a>
             </div>
         </div>
     </div>
@@ -56,10 +49,13 @@
         <div class="col-6">
             <form action="" method="GET">
                 <div class="input-group mb-3 mt-3">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Recipient's username" value="" name="search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
-                    </div>
+                    <form action="/allproduct">
+                        <input name="keyword" type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
+
                 </div>
             </form>
         </div>
@@ -86,27 +82,27 @@
     <div class="row col-12 mb-3"  th:fragment="nav">
         <ul style="margin: auto;" class="nav ">
             <li class="nav-item">
-                <a class="nav-link active nav-link-active-custom" href="./trangchu.php">Trang chủ</a>
+                <a class="nav-link active nav-link-active-custom" th:href="@{/home}">Trang chủ</a>
             </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link active nav-link-active-custom" href="#">Về chúng tôi</a>-->
+<!--            </li>-->
             <li class="nav-item">
-                <a class="nav-link active nav-link-active-custom" href="#">Về chúng tôi</a>
+                <a class="nav-link active nav-link-active-custom" th:href="@{/allproduct}">Tất cả sản phẩm</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link active nav-link-active-custom" href="./index.php">Tất cả sản phẩm</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active nav-link-active-custom" href="#">Hướng dẫn mua hàng</a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link active nav-link-active-custom" href="#">Hướng dẫn mua hàng</a>-->
+<!--            </li>-->
 
             <li class="nav-item">
-                <a class="nav-link active nav-link-active-custom" href="#">khách hàng</a>
+                <a class="nav-link active nav-link-active-custom" th:href="@{/profile}">khách hàng</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link active nav-link-active-custom" href="#">liên hệ </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active nav-link-active-custom sale-off" href="#">Sale off</a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link active nav-link-active-custom" href="#">liên hệ </a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link active nav-link-active-custom sale-off" href="#">Sale off</a>-->
+<!--            </li>-->
         </ul>
     </div>
 

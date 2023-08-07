@@ -15,6 +15,7 @@ public interface ProductSizeRepository extends JpaRepository<ProductSize,Integer
     List<ProductSize> findNullProductIdAndSizeId();
 
     List<ProductSize> findByProductId(Integer productId);
+    ProductSize findByProductIdAndSizeId(Integer productId, Integer sizeId);
 
 //    List<ProductSize> findByQuantityGreaterThan(int quantity);
 }

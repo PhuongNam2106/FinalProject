@@ -110,7 +110,6 @@ public abstract class BaseService<E extends BaseEntity>{
 		
 		try {
 			Query query = entityManager.createNativeQuery(sql, clazz());
-			
 			//trường hợp có thực hiện phân trang thì kết quả trả về
 			//bao gồm tổng số page và dữ liệu page hiện tại
 			if(page > 0) {

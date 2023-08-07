@@ -20,10 +20,14 @@
     </script>
     <!--End of Tawk.to Script-->
     <!--HEADER-->
-    <div class="row header">
+    <div style="width: 105% !important"  class="row header">
         <div th:replace="html/CustomerView/common::header1"></div>
         <div th:replace="html/CustomerView/common::header2"></div>
         <div th:replace="html/CustomerView/common::nav"></div>
+    </div>
+
+<!--    Alert Checkout success-->
+    <div th:if="${message!=null}" th:text="${message}" style="margin-top: 150px;margin-bottom: -145px;" class="alert alert-primary" role="alert">
     </div>
     <!--slide-->
     <div style="margin-top: 154px;" class="row slide">
@@ -120,28 +124,31 @@
             <div class="row">
                 <div class="col-4">
                     <div class="card" style="border: none; background-color: #333333;">
-                        <figure> <img class="card-img-top " id="zoomIn" src="./kinh of shoe/index_banner_1.jpg" alt="Card image cap"></figure>
+                        <figure> <img class="card-img-top " id="zoomIn" src="./image/index_banner_1.jpg" alt="Card image cap"></figure>
                         <div class="card-body p-1 color-card-body">
-                            <p style="font-weight: 550; color: orange;" class="card-text">THỂ THAO CHO NAM</p>
+                            <a th:href="@{/category/2}" style="font-weight: 550; color: orange;" class="card-text">GIÀY SÂN CỎ NHÂN TẠO</a>
+                            <p class="info-category">Dành cho mặt sân cỏ nhân tạo từ 5-7 người</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="card" style="border: none;background-color: #333333;">
-                        <figure> <img class="card-img-top " id="zoomIn" src="./kinh of shoe/giaycotunhien.jpg" alt="Card image cap">
+                        <figure> <img class="card-img-top " id="zoomIn" src="./image/giaycotunhien.jpg" alt="Card image cap">
                         </figure>
                         <div class="card-body p-1 color-card-body">
-                            <p style="font-weight: 550; color: orange;" class="card-text">THỂ THAO CHO NỮ</p>
+                            <a th:href="@{/category/1}" style="font-weight: 550; color: orange;" class="card-text">GIÀY SÂN CỎ TỰ NHIÊN</a>
+                            <p class="info-category">Dành cho mặt sân có tự nhiên 11 người</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="card" style="border: none;background-color: #333333;">
-                        <figure> <img class="card-img-top " id="zoomIn" src="./kinh of shoe/giayfutsal.jpg" alt="Card image cap">
+                        <figure> <img class="card-img-top " id="zoomIn" src="./image/giayfutsal.jpg" alt="Card image cap">
                         </figure>
                         <div class="card-body p-1 color-card-body">
-                            <p style="font-weight: 550; color: orange;" class="card-text">THỂ THAO CHO TRẺ EM
+                            <p style="font-weight: 550; color: orange;" class="card-text">GIÀY FUTSAL
                             </p>
+                            <p class="info-category">Giành cho sân xi măng và sân Futsal</p>
                         </div>
                     </div>
                 </div>
@@ -150,86 +157,56 @@
         <!--TYPE OF PRODUCTS-->
         <div class="container type-of-product">
             <div class=" box">
-                <img height="150px !important" src="./type_of_product/kid-shoes.jpg">
+                <img height="150px !important" src="./image/kid-shoes.jpg">
                 <span>Giày cho trẻ em</span>
             </div>
             <div class=" box">
-                <img height="150px !important" src="./type_of_product/uniform.jpg">
+                <img height="150px !important" src="./image/uniform.jpg">
                 <span>Quần áo thể thao</span>
             </div>
             <div class=" box">
-                <img height="150px !important" src="./type_of_product/ball.jpg">
+                <img height="150px !important" src="./image/ball.jpg">
                 <span>Phụ kiện thể thao</span>
             </div>
 
         </div>
-        <!--GENERATION-->
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                    <div class="gene_item">
-                        <div class="gene_img">
-                            <img src="./product img/gene3.png" alt="">
-                        </div>
-                        <div class="gene_info">
-                            <h2 class="gene_title">A NEW GENERATION</h2>
-                            <p class="gene_desc">Náo nhiệt và táo bạo nhưng luôn cởi mở -- đôi giày sáng tạo cho chính bạn
-                            </p>
-                            <button class="gene_button btn btn-secondary">MUA NGAY</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                    <div class="gene_item">
-                        <div class="gene_img">
-                            <img src="./product img/gene2.webp" alt="">
-                        </div>
-                        <div class="gene_info">
-                            <h2 class="gene_title">WE'RE GOT YOU COVERED</h2>
-                            <p class="gene_desc">Discover the adidas Face Cover with an improved confort, designed for exercise
-                            </p>
-                            <button class="gene_button btn btn-secondary">SHOP NOW</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--BEST OF ADIDAS-->
+
+        <!--BY POSITION-->
         <div style="margin: 20px auto; text-align: center; font-size:30px; font-weight:700; color: #555555;">
-            BEST OF ADIDAS
+            BẠN CHƠI Ở VỊ TRÍ NÀO?
         </div>
-        <div style="margin-bottom: 2px !important;" class="container">
-            <div class="row">
-                <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 best">
-                    <div class="best_item">
-                        <img height="150px !important" src="./product img/best1.webp">
-                        <a class="best_title product-title" href="./chitiet.php">Response Super 2.0 Shoes</a>
-                        <p class="price_bestitem">2,300,000đ</p>
+
+        <div class="row container find">
+            <div class="col-4">
+                <div class="card" style="width: 18rem; border: none; background-color: #333333;">
+                    <figure> <img class="card-img-top " id="zoomIn" src="./image/position_banner_1.jpg" alt="Card image cap"></figure>
+                    <div class="card-body p-1 color-card-body">
+                        <p style="font-weight: 550; color: orange;"  class="card-text">HẬU VỆ</p>
+                        <p class="info-category">Phòng ngự chắc chắn</p>
                     </div>
                 </div>
-                <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-3">
-                    <div class="best_item">
-                        <img height="150px !important" src="./product img/best2.webp">
-                        <a class="best_title product-title" href="./chitiet.php">Ultraboost 22 Shoes</a>
-                        <p class="price_bestitem">5,200,000đ</p>
+            </div>
+            <div class="col-4">
+                <div class="card" style="width: 18rem; border: none;background-color: #333333;">
+                    <figure> <img class="card-img-top " id="zoomIn" src="./image/position_banner_2.jpg" alt="Card image cap"></figure>
+                    <div class="card-body p-1 color-card-body">
+                        <p style="font-weight: 550; color: orange;" class="card-text">TIỀN VỆ</p>
+                        <p class="info-category">Kiểm soát, chuyền bóng</p>
                     </div>
                 </div>
-                <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-3">
-                    <div class="best_item">
-                        <img height="150px !important" src="./product img/best3.webp">
-                        <a class="best_title product-title" href="./chitiet.php">Galaxy 5 Shoes</a>
-                        <p class="price_bestitem">1,500,000đ</p>
-                    </div>
-                </div>
-                <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-3">
-                    <div class="best_item">
-                        <img height="150px !important" src="./product img/best4.webp">
-                        <a class="best_title product-title" href="./chitiet.php">Fluidflow 2.0 Shoes</a>
-                        <p class="price_bestitem">2,100,000đ</p>
+            </div>
+            <div class="col-4">
+                <div class="card" style="width: 18rem; border: none;background-color: #333333;">
+                    <figure> <img class="card-img-top " id="zoomIn" src="./image/position_banner_3.jpg" alt="Card image cap"></figure>
+                    <div class="card-body p-1 color-card-body">
+                        <p style="font-weight: 550; color: orange;" class="card-text">TIỀN ĐẠO</p>
+                        <p class="info-category">Tốc độ đột phá</p>
+
                     </div>
                 </div>
             </div>
         </div>
+
         <div style=" max-width: 1300px;" class="container find">
             <!--END-Position-->
             <!-- Footer -->

@@ -22,7 +22,7 @@
     <!--End of Tawk.to Script-->
     <div class="container-fluid">
         <!--HEADER-->
-        <div class="row header">
+        <div style="width: 105% !important" class="row header">
             <div th:replace="html/CustomerView/common::header1"></div>
             <div th:replace="html/CustomerView/common::header2"></div>
             <div th:replace="html/CustomerView/common::nav"></div>
@@ -39,7 +39,7 @@
 
             <div class="col-9 content">
                 <div class="row">
-                    <img src="../Bootstrap/product img/banner-collection.jpg" alt="">
+                    <img src="./image/banner-collection.jpg" alt="">
                 </div>
                 <div style="color: white;" class="text-all-product">
                     TẤT CẢ SẢN PHẨM
@@ -76,15 +76,36 @@
                     </div>
                 </div>
                 <hr>
-                <nav style="margin: auto; color: orange !important;" class="col-4" aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <?php for ($i = 1; $i <= $so_trang; $i++) { ?>
+                <!-- Paging -->
+                <nav  aria-label="Page navigation example">
+                    <ul style="justify-content: center;" class="pagination">
                         <li class="page-item">
-                            <a style="color: orange !important;" class="page-link" href="?trang=<?php echo $i ?>&categoryId=<?php if (isset($_GET['categoryId'])) echo $_GET['categoryId'] ?>&search=<?php echo $search ?>">
-                                <?php echo $i ?>
-                            </a>
+                            <th:block th:if="${currentPage == 1}">
+                                <a class="page-link disabled" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </th:block>
+                            <th:block th:if="${currentPage != 1}">
+                                <a class="page-link" th:href="@{/allproduct(pageIndex=${currentPage-1})}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </th:block>
                         </li>
-                        <?php } ?>
+                        <li class="page-item" th:each="index:${#numbers.sequence(1,list.totalPages)}">
+                            <a style="color: orange" class="page-link" th:href="@{/allproduct(pageIndex=${index})}" th:text="${index}"></a>
+                        </li>
+                        <li class="page-item">
+                            <th:block th:if="${currentPage == list.totalPages}">
+                                <a class="page-link disabled" aria-label="Next"><span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </th:block>
+                            <th:block th:if="${currentPage != list.totalPages}">
+                                <a class="page-link" th:href="@{/allproduct(pageIndex=${currentPage+1})}" aria-label="Next"><span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </th:block>
+                        </li>
                     </ul>
                 </nav>
             </div>

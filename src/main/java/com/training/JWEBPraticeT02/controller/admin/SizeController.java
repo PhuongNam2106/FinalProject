@@ -19,7 +19,7 @@ import java.util.Optional;
 public class SizeController {
     @Autowired
     private SizeRepository sizeRepository;
-    @GetMapping("/size/add")
+    @GetMapping("/admin/size/add")
     public String addSize(Model model) {
 
         if (model.getAttribute("size") == null) {
@@ -32,15 +32,15 @@ public class SizeController {
     }
 
 
-    @PostMapping("/size/add")
+    @PostMapping("/admin/size/add")
     public String validateSize(@ModelAttribute Size size,
                                    RedirectAttributes redirect) {
         sizeRepository.save(size);
-        redirect.addFlashAttribute("message", "Thêm loại sản phẩm thành công");
-        return "redirect:/size/list";
+        redirect.addFlashAttribute("message", "Thêm size thành công");
+        return "redirect:/admin/size/list";
     }
 
-    @GetMapping("/size/list")
+    @GetMapping("/admin/size/list")
     public String getList(Model model){
 
         List<Size> sizes = sizeRepository.findAll();
@@ -49,7 +49,7 @@ public class SizeController {
         return "html/AdminView/sizeView/sizeList";
     }
 
-    @GetMapping("/size/edit/{id}")
+    @GetMapping("/admin/size/edit/{id}")
     public  String editPage(@PathVariable("id") int id, Model model) {
 
 
@@ -60,7 +60,7 @@ public class SizeController {
         return "html/AdminView/sizeView/addsize";
     }
 
-    @PostMapping("/size/edit")
+    @PostMapping("/admin/size/edit")
     public  String editSize(
             @ModelAttribute("size") Size size,
             RedirectAttributes redirectAttributes)
@@ -68,13 +68,13 @@ public class SizeController {
         redirectAttributes.addFlashAttribute("message","Update information successfully");
         sizeRepository.save(size);
 
-        return "redirect:/size/list";
+        return "redirect:/admin/size/list";
     }
 
-    @GetMapping("/size/delete/{id}")
+    @GetMapping("/admin/size/delete/{id}")
     public  String delete(@PathVariable("id") int id, RedirectAttributes attributes) {
         sizeRepository.deleteById(id);
         attributes.addFlashAttribute("message", "Delete successfully");
-        return "redirect:/size/list";
+        return "redirect:/admin/size/list";
     }
 }
